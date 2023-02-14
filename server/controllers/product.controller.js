@@ -34,3 +34,29 @@ module.exports.getProduct = async (request, response) => {
     response.json(error);
   }
 };
+
+//Actualizar un producto
+module.exports.updateProduct = async (request, response) => {
+  try {
+    const updatedProduct = await Product.findOneAndUpdate(
+      { _id: request.params.id },
+      request.body,
+      { new: true }
+    );
+    response.json(updatedProduct);
+  } catch (error) {
+    response.json(error);
+  }
+};
+
+//Eliminar producto
+module.exports.deleteProduct = async (request, response) => {
+  try {
+    const deletedConfirmation = await Product.deleteOne({
+      _id: request.params.id,
+    });
+    response.json(deletedConfirmation);
+  } catch (error) {
+    response.json(error);
+  }
+};
